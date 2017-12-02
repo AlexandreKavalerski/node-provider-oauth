@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var Usuario = require('../models/usuario');
+// var crypto = require('crypto');
+// var md5Privada = crypto.createHash('md5');
+// var md5Publica = crypto.createHash('md5');
+// var md5Senha = crypto.createHash('md5');
 
 
 router.get('/', function(req, res, next) {
-  console.log(`Objeto req:`);
-  console.log(req);
-  Usuario.find({ id: req.user.id }, function(erro, usuarios) {
+  Usuario.find({ }, function(erro, usuarios) {
     if (erro)
       res.send(erro);
     res.json({usuarios: usuarios});
@@ -15,9 +17,10 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var usuario = new Usuario();
   
-  usuario.nome = req.body.nome;
-  usuario.senha = req.body.senha;
-  usuario.id = req.body.id;
+  usuario.login = req.body.login;
+  usuario.senha = require('crypto').createHash('md5').update(req.body.senha).digest('hex');
+  usuario.chavePrivada = require('crypto').createHash('md5').update(req.body.chavePrivada).digest('hex');
+  usuario.chavePublica = require('crypto').createHash('md5').update(req.body.chavePublica).digest('hex');
 
   usuario.save(function(erro) {
       if (erro)
