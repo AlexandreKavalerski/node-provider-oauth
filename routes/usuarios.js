@@ -1,11 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Usuario = require('../models/usuario');
-// var crypto = require('crypto');
-// var md5Privada = crypto.createHash('md5');
-// var md5Publica = crypto.createHash('md5');
-// var md5Senha = crypto.createHash('md5');
-
 
 router.get('/', function(req, res, next) {
   Usuario.find({ }, function(erro, usuarios) {
