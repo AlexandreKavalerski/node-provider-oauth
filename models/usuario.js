@@ -6,9 +6,10 @@ mongoose.connect(mongodb, {
 });
 
 var UsuarioSchema = new mongoose.Schema({
-  nome: { type: String, unique: true, required: true },
+  login: { type: String, unique: true, required: true },
   senha: { type: String, required: true },
-  id: { type: String, required: true }
+  chavePrivada: { type: String, required: true },
+  chavePublica: {type: String, unique: true}
 });
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);
