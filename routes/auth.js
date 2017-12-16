@@ -31,10 +31,9 @@ router.post('/', function(req, res, next) {
                                 chavePublica: usuario.chavePublica,
                                 chavePrivada: usuario.chavePrivada
                             };
-                            var token = jwt.sign(payload, 'NODE-OAUTH', { 
+                            var token = jwt.sign(payload, app.chave, { 
                                 expiresIn: 1440 //expira em 24 horas
                             });
-                            // console.log("http://" + app.urlCallback + "?" + token);
                             res.json({sucesso: true, mensagem: "Autenticação realizada com sucesso!", token: token, urlCallback: app.urlCallback});
                         }
                     }
